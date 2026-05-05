@@ -1,10 +1,11 @@
 # main.py
-# This program tests the BinaryExpressionTree class
+# This program tests classes
 
 from binary_expression_tree import BinaryExpressionTree
+from triage_system import TriageSystem
 
 
-def main():
+def test_part1():
     print("----- Binary Expression Tree -----")
 
     expressions = [
@@ -22,6 +23,24 @@ def main():
         print("Postfix Output:    ", tree.postfix_traversal())
         print("Evaluated Result:  ", tree.evaluate_tree())
         print()
+
+
+def test_part3():
+    print("----- Hospital Triage System Part 3 -----")
+
+    triage = TriageSystem()
+
+    print("Queue empty?", triage.is_empty())
+    print("Queue size:", triage.size())
+
+    triage.clear()
+    print("Queue cleared.")
+    print()
+
+
+def main():
+    test_part1()
+    test_part3()
 
 
 if __name__ == "__main__":
