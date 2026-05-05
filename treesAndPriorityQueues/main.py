@@ -10,7 +10,7 @@ def main():
 
     tree = BinaryExpressionTree()
 
-    expression = "5 3 8"
+    expression = "5 3 +"
 
     tree.build_from_postfix(expression)
 

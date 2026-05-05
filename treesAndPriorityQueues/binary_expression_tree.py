@@ -33,16 +33,31 @@ class BinaryExpressionTree:
 
         stack = Stack()
         tokens = postfix.split()
+        operators = ["+", "-", "*", "/"]
 
         for token in tokens:
             # If the token is a number, create a tree node
             if self._is_number(token):
                 node = TreeNode(token)
                 stack.push(node)
+
+            # If the token is an operator, connect two previous nodes
+            elif token in operators:
+                operator_node = TreeNode(token)
+
+                # Right side is popped first
+                operator_node.right = stack.pop()
+
+                # Left side is popped second
+                operator_node.left = stack.pop()
+
+                # Push the new mini-tree back onto the stack
+                stack.push(operator_node)
+
             else:
                 raise ValueError(f"Unsupported token: {token}")
 
-        # Set the last item as the root
+        # The final item left is the full expression tree
         if stack.size() > 0:
             self.root = stack.pop()
     
