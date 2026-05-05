@@ -35,6 +35,32 @@ class TriageSystem:
 
         heapq.heappush(self.__queue, patient)
 
+    def process_next(self):
+        # If the queue is empty, return None
+        if self.is_empty():
+            return None
+
+        # Remove the highest priority patient
+        patient = heapq.heappop(self.__queue)
+
+        name = patient[2]
+        severity = patient[3]
+
+        return name, severity
+
+    def peek_next(self):
+        # If the queue is empty, return None
+        if self.is_empty():
+            return None
+
+        # Look at the highest priority patient without removing it
+        patient = self.__queue[0]
+
+        name = patient[2]
+        severity = patient[3]
+
+        return name, severity
+
     def is_empty(self):
         # Returns True if there are no patients
         return len(self.__queue) == 0

@@ -33,13 +33,22 @@ def test_part3():
     triage.add_patient("Sofia", 5)
     triage.add_patient("Bob", 2)
     triage.add_patient("Charlie", 4)
+    triage.add_patient("Diana", 3)
+    triage.add_patient("Eli", 1)
+    triage.add_patient("Tom", 4)
+    triage.add_patient("Alice", 5)
+    triage.add_patient("Rachel", 4)
 
-    print("Queue empty?", triage.is_empty())
-    print("Queue size:", triage.size())
+    next_patient = triage.peek_next()
+    print("Next patient:", next_patient[0], "(Severity", next_patient[1], ")")
 
-    triage.clear()
-    print("Queue cleared.")
-    print("Queue size after clear:", triage.size())
+    print()
+    print("Processing patients:")
+
+    while not triage.is_empty():
+        name, severity = triage.process_next()
+        print("Now treating:", name, "(Severity", severity, ")")
+
     print()
 
 
