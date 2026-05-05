@@ -26,15 +26,20 @@ def test_part1():
 
 
 def test_part3():
-    print("----- Hospital Triage System Part 3 -----")
+    print("----- Hospital Triage System -----")
 
     triage = TriageSystem()
+
+    triage.add_patient("Sofia", 5)
+    triage.add_patient("Bob", 2)
+    triage.add_patient("Charlie", 4)
 
     print("Queue empty?", triage.is_empty())
     print("Queue size:", triage.size())
 
     triage.clear()
     print("Queue cleared.")
+    print("Queue size after clear:", triage.size())
     print()
 
 

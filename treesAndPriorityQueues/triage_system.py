@@ -1,11 +1,39 @@
 # triage_system.py
 # This file contains the TriageSystem class
 
+import heapq
+
 
 class TriageSystem:
+    # Class-level counter to track arrival order
+    arrival_counter = 0
+
     def __init__(self):
         # Private queue that will store patients
         self.__queue = []
+
+    @staticmethod
+    def next_arrival_order():
+        # Gets the current arrival number, then increases it
+        current_order = TriageSystem.arrival_counter
+        TriageSystem.arrival_counter += 1
+        return current_order
+
+    def add_patient(self, name, severity):
+        # Checks that the name is not empty
+        if name == "":
+            raise ValueError("Patient name cannot be empty.")
+
+        # Checks that severity is between 1 and 5
+        if severity < 1 or severity > 5:
+            raise ValueError("Severity must be between 1 and 5.")
+
+        arrival_order = TriageSystem.next_arrival_order()
+
+        # heapq is a min-heap, so severity is made negative
+        patient = (-severity, arrival_order, name, severity)
+
+        heapq.heappush(self.__queue, patient)
 
     def is_empty(self):
         # Returns True if there are no patients
