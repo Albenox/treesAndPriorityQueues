@@ -1,6 +1,7 @@
 # binary_expression_tree.py
 # This file will contain the BinaryExpressionTree class
 
+from stack import Stack
 
 class TreeNode:
     def __init__(self, value):

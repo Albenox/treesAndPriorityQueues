@@ -6,21 +6,20 @@ from stack import Stack
 
 
 def main():
+    print("----- Binary Expression Tree Part-----")
+
     tree = BinaryExpressionTree()
 
-    print("----- Binary Expression Tree Part 1A-2 -----")
-    print("Tree empty?", tree.is_empty())
+    expression = "5 3 8"
 
-    stack = Stack()
-    print("Stack empty?", stack.is_empty())
+    tree.build_from_postfix(expression)
 
-    stack.push("5")
-    stack.push("3")
+    print("Postfix:", expression)
 
-    print("Stack size after pushes:", stack.size())
-    print("Top item:", stack.top())
-    print("Popped item:", stack.pop())
-    print("Stack size after pop:", stack.size())
+    if not tree.is_empty():
+        print("Root value:", tree.root.value)
+    else:
+        print("Tree is empty")
 
 
 if __name__ == "__main__":
