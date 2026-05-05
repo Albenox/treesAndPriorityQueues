@@ -32,19 +32,3 @@ class Stack:
     def size(self):
         # Returns how many items are in the stack
         return len(self.items)
-
-    def build_from_postfix(self, postfix):
-        # Clears any existing tree
-        self.clear_tree()
-
-        stack = Stack()
-        tokens = postfix.split()
-
-        for token in tokens:
-            # For now, assume everything is a number
-            node = TreeNode(token)
-            stack.push(node)
-
-        # Set the last item as the root
-        if stack.size() > 0:
-            self.root = stack.pop()
