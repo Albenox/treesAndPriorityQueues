@@ -1,25 +1,27 @@
 # main.py
-# This program tests the starting framework and Stack class
+# This program tests the BinaryExpressionTree class
 
 from binary_expression_tree import BinaryExpressionTree
-from stack import Stack
 
 
 def main():
-    print("----- Binary Expression Tree Part-----")
+    print("----- Binary Expression Tree -----")
 
-    tree = BinaryExpressionTree()
+    expressions = [
+        "5 3 +",
+        "8 2 - 3 +",
+        "5 3 8 * +"
+    ]
 
-    expression = "5 3 +"
+    for expression in expressions:
+        tree = BinaryExpressionTree()
+        tree.build_from_postfix(expression)
 
-    tree.build_from_postfix(expression)
-
-    print("Postfix:", expression)
-
-    if not tree.is_empty():
-        print("Root value:", tree.root.value)
-    else:
-        print("Tree is empty")
+        print("Postfix Expression:", expression)
+        print("Infix Expression:  ", tree.infix_traversal())
+        print("Postfix Output:    ", tree.postfix_traversal())
+        print("Evaluated Result:  ", tree.evaluate_tree())
+        print()
 
 
 if __name__ == "__main__":

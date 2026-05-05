@@ -1,5 +1,5 @@
 # binary_expression_tree.py
-# This file will contain the BinaryExpressionTree class
+# This file contains the BinaryExpressionTree class
 
 from stack import Stack
 
@@ -41,28 +41,81 @@ class BinaryExpressionTree:
                 node = TreeNode(token)
                 stack.push(node)
 
-            # If the token is an operator, connect two previous nodes
+            # If the token is an operator, connect nodes
             elif token in operators:
                 operator_node = TreeNode(token)
 
-                # Right side is popped first
+                # Pop right then left
                 operator_node.right = stack.pop()
-
-                # Left side is popped second
                 operator_node.left = stack.pop()
 
-                # Push the new mini-tree back onto the stack
+                # Push the new subtree back
                 stack.push(operator_node)
 
             else:
                 raise ValueError(f"Unsupported token: {token}")
 
-        # The final item left is the full expression tree
-        if stack.size() > 0:
-            self.root = stack.pop()
-    
+        # Final tree root
+        if stack.size() != 1:
+            raise ValueError("Invalid postfix expression.")
+
+        self.root = stack.pop()
+
+    def infix_traversal(self):
+        if self.is_empty():
+            raise ValueError("Cannot traverse an empty tree.")
+
+        return self._inorder(self.root)
+
+    def _inorder(self, node):
+        # Leaf node (number)
+        if node.left is None and node.right is None:
+            return node.value
+
+        # Left, root, right
+        return f"({self._inorder(node.left)} {node.value} {self._inorder(node.right)} )"
+
+    def postfix_traversal(self):
+        if self.is_empty():
+            raise ValueError("Cannot traverse an empty tree.")
+
+        return self._postorder(self.root)
+
+    def _postorder(self, node):
+        # Leaf node (number)
+        if node.left is None and node.right is None:
+            return node.value
+
+        # Left, right, root
+        return f"{self._postorder(node.left)} {self._postorder(node.right)} {node.value}"
+
+    def evaluate_tree(self):
+        if self.is_empty():
+            raise ValueError("Cannot evaluate an empty tree.")
+
+        return self._evaluate(self.root)
+
+    def _evaluate(self, node):
+        # Leaf node (number)
+        if node.left is None and node.right is None:
+            return float(node.value)
+
+        # Recursively evaluate
+        left_val = self._evaluate(node.left)
+        right_val = self._evaluate(node.right)
+
+        if node.value == "+":
+            return left_val + right_val
+        elif node.value == "-":
+            return left_val - right_val
+        elif node.value == "*":
+            return left_val * right_val
+        elif node.value == "/":
+            if right_val == 0:
+                raise ZeroDivisionError("Cannot divide by zero.")
+            return left_val / right_val
+
     def _is_number(self, token):
-        # Checks if the token can be converted into a number
         try:
             float(token)
             return True
